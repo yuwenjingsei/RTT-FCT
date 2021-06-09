@@ -15,6 +15,7 @@ for fileCount in range(1,2):
 		fctStartTimeStamp = Decimal(0).quantize(Decimal('0.000001'))
 		fctEndTimeStamp = Decimal(0).quantize(Decimal('0.000001')). 
 		#可以在声明时候限制精度，quantize里面，Decimal里面，必须用字符串，直接用小数会报错quantize result has too many digits for current context
+		#quantize是一个运算符，如果‘0.000001’返回的是小数点后6位，但如果是0.000001，返回的是小数点后72位，超出64位限制
 
 
 		for timestamp, buffer in pcap:
