@@ -13,7 +13,8 @@ for fileCount in range(1,2):
 		lastTimeStamp = Decimal(0).quantize(Decimal('0.000001'))
 		curTimeStamp = Decimal(0).quantize(Decimal('0.000001'))
 		fctStartTimeStamp = Decimal(0).quantize(Decimal('0.000001'))
-		fctEndTimeStamp = Decimal(0).quantize(Decimal('0.000001'))
+		fctEndTimeStamp = Decimal(0).quantize(Decimal('0.000001')). 
+		#可以在声明时候限制精度，quantize里面，Decimal里面，必须用字符串，直接用小数会报错quantize result has too many digits for current context
 
 
 		for timestamp, buffer in pcap:
@@ -40,7 +41,8 @@ for fileCount in range(1,2):
 				synCount = 6
 				conSrcPort = tcp.sport
 				conDstPort = tcp.dport
-				curTimeStamp = Decimal(timestamp).quantize(Decimal('0.000001'))
+				curTimeStamp = Decimal(timestamp).quantize(Decimal('0.000001')) 
+				#但是这里就可以把timestamp直接放在Decimal里面，可能应为timestamp本身是小数后两位
 				continue
 			
 			srcport = tcp.sport
@@ -51,6 +53,7 @@ for fileCount in range(1,2):
 				curTimeStamp = Decimal(timestamp).quantize(Decimal('0.000001'))
 
 				# time gap over 0.01s, data transportion begins
+				#涉及到浮点比较大小的，都要用compare
 				if (curTimeStamp - lastTimeStamp).compare(Decimal('0.01'))==1  and  (srcport == conSrcPort):
 					fctStartTimeStamp = curTimeStamp
 
