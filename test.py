@@ -16,6 +16,11 @@ for fileCount in range(1,2):
 		fctEndTimeStamp = Decimal(0).quantize(Decimal('0.000001')). 
 		#可以在声明时候限制精度，quantize里面，Decimal里面，必须用字符串，直接用小数会报错quantize result has too many digits for current context
 		#quantize是一个运算符，如果‘0.000001’返回的是小数点后6位，但如果是0.000001，返回的是小数点后72位，超出64位限制
+		
+		#python2 print float默认显示到0.01，但是其实存储的精度还是比较大的，
+		#python3 print float默认显示到0.000001，存储和python2应该是相同的
+		#显示格式，print "%.6f" % FCT 来控制显示到小数点后6位
+		#endtime-starttime>0.01可以直接这么写，这个表面测试起来没有什么错误，可能是因为timestamp精度本身只有小数点后6位，要求还不是很高，如果小数点后很多位，python自动填充或计算可能会发生错误
 
 
 		for timestamp, buffer in pcap:
